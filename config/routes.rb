@@ -1,4 +1,6 @@
 ExpenseSharing::Application.routes.draw do
+  resources :transaction_shares
+
   resources :transactions
 
   devise_for :users

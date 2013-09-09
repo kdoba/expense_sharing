@@ -4,7 +4,11 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
-    @transactions = Transaction.where("user_id = ?", current_user.id)
+    if user_signed_in?
+      @transactions = Transaction.where("user_id = ?", current_user.id)
+    else
+      @transactions = Transaction.all
+    end
   end
 
   # GET /transactions/1
@@ -26,6 +30,7 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(transaction_params)
     @transaction.user_id = current_user.id
+    @transaction.share_with = transaction_params[:share_with]
     respond_to do |format|
       if @transaction.save
         format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
@@ -42,6 +47,8 @@ class TransactionsController < ApplicationController
   def update
     respond_to do |format|
       if @transaction.update(transaction_params)
+        @transaction.user_id = current_user.id
+        @transaction.share_with = transaction_params[:share_with]
         format.html { redirect_to @transaction, notice: 'Transaction was successfully updated.' }
         format.json { head :no_content }
       else
@@ -69,6 +76,6 @@ class TransactionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transaction_params
-      params.require(:transaction).permit(:date, :description, :amount, :user_id)
+      params.require(:transaction).permit(:date, :description, :amount, :user_id, :share_with)
     end
 end

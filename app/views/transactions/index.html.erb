@@ -6,8 +6,8 @@
       <th>Date</th>
       <th>Description</th>
       <th>Amount</th>
-      <th>User</th>
-      <th></th>
+      <th>Owner</th>
+      <th>Share with</th>
       <th></th>
       <th></th>
     </tr>
@@ -20,6 +20,10 @@
         <td><%= transaction.description %></td>
         <td><%= transaction.amount %></td>
         <td><%= transaction.user.email %></td>
+        <td><% transaction.transaction_shares.each do |transaction_share| %>
+          <%= transaction_share.user.email %>,
+          <% end %>
+        </td>
         <td><%= link_to 'Show', transaction %></td>
         <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
         <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>

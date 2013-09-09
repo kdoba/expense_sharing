@@ -1,0 +1,29 @@
+<h1>Listing transaction_shares</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Transaction</th>
+      <th>User</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @transaction_shares.each do |transaction_share| %>
+      <tr>
+        <td><%= transaction_share.transaction_id %></td>
+        <td><%= transaction_share.user_id %></td>
+        <td><%= link_to 'Show', transaction_share %></td>
+        <td><%= link_to 'Edit', edit_transaction_share_path(transaction_share) %></td>
+        <td><%= link_to 'Destroy', transaction_share, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Transaction share', new_transaction_share_path %>

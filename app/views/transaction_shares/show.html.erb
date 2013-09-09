@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Transaction:</strong>
+  <%= @transaction_share.transaction_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @transaction_share.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_transaction_share_path(@transaction_share) %> |
+<%= link_to 'Back', transaction_shares_path %>
