@@ -1,8 +1,8 @@
 == README
-== Author: Khoa Do Ba
-== Date: Sep 8, 2013
-== FSE 96-700
-== Task 2
+Author: Khoa Do Ba
+Date: Sep 8, 2013
+FSE 96-700
+Task 2
 
 == Run Instruction
 To run the app, execute the following command from the project's root folder
