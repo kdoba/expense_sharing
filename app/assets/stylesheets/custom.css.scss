@@ -1,0 +1,86 @@
+@import "bootstrap";
+
+/* universal */
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  padding-top: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  margin-bottom: 10px;
+}
+
+
+/* typography */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: #999;
+}
+
+li {
+  color: #f0f0f0;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+
+/* table */
+table {
+  width: 100%;
+}
+
+th
+{
+  padding: 12px 17px 12px 17px;
+  font-weight: normal;
+  font-size: 14px;
+  color: #336699;
+  border-bottom: 1px dashed #69c;
+}
+td
+{
+  padding: 7px 17px 7px 17px;
+  color: #669;
+}
+tbody tr:hover td
+{
+  color: #339;
+  background: #d0dafd;
+}
