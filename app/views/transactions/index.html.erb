@@ -9,7 +9,6 @@
       <th scope="col" id="owner">Owner</th>
       <th scope="col" id="share">Share with</th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -21,7 +20,6 @@
         <td><%= transaction.amount %></td>
         <td><%= transaction.user.username %></td>
         <td><%= transaction.transaction_shares.map{|t| t.user.username }.join(",")%></td>
-        <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
         <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -30,4 +28,3 @@
 
 <br>
 
-<%= link_to 'New Transaction', new_transaction_path %>

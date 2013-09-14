@@ -2,7 +2,7 @@
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
-
+  <%= f.text_field :id %>
   <p><%= f.label :username %><br />
   <%= f.text_field :username %></p>
 

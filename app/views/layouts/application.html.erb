@@ -25,6 +25,13 @@
     </div>
   </div>
 </header>
+
+<nav class="side-nav">
+  <%= link_to 'Dashboard', dashboard_path %>
+  <%= link_to 'Pending Transactions', transactions_path %>
+  <%= link_to 'New Transaction', new_transaction_path %>
+</nav>
+
 <% if notice %>
     <p class="alert alert-notice"><%= notice %></p>
 <% end %>

@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  def dashboard
+    user_trans = TransactionShare.joins(:transaction, :user).where(user_id: current_user.id)
+    @total_amount = user_trans.map{|t| t.transaction.amount }.sum
+  end
+
   protected
 
   def configure_permitted_parameters

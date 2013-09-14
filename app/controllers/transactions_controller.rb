@@ -30,10 +30,11 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(transaction_params)
     @transaction.user_id = current_user.id
-    share_list = transaction_params[:share_with].split(",")
-    share_list.each do |item|
-      @transaction.share_with = transaction_params[:share_with]
-    end
+    @transaction.share_with = transaction_params[:share_with]
+    #share_list = transaction_params[:share_with].split(",")
+    #share_list.each do |item|
+    #  @transaction.share_with = item
+    #end
 
     respond_to do |format|
       if @transaction.save
