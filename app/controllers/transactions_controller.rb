@@ -5,7 +5,7 @@ class TransactionsController < ApplicationController
   # GET /transactions.json
   def index
     if user_signed_in?
-      @transactions = Transaction.where("user_id = ?", current_user.id)
+      @transactions = TransactionShare.joins(:transaction, :user).where(user_id: current_user.id).map{ |t| t.transaction}
     else
       @transactions = Transaction.all
     end
@@ -29,15 +29,15 @@ class TransactionsController < ApplicationController
   # POST /transactions.json
   def create
     @transaction = Transaction.new(transaction_params)
-    @transaction.user_id = current_user.id
-    @transaction.share_with = transaction_params[:share_with]
-    #share_list = transaction_params[:share_with].split(",")
-    #share_list.each do |item|
-    #  @transaction.share_with = item
-    #end
 
     respond_to do |format|
       if @transaction.save
+
+        share_list = params[:transaction][:share_with].split(",")
+        share_list.each do |item|
+          @transaction.share_with = item
+        end
+
         format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
         format.json { render action: 'show', status: :created, location: @transaction }
       else
@@ -53,7 +53,6 @@ class TransactionsController < ApplicationController
     respond_to do |format|
       if @transaction.update(transaction_params)
         @transaction.user_id = current_user.id
-        @transaction.share_with = transaction_params[:share_with]
         format.html { redirect_to @transaction, notice: 'Transaction was successfully updated.' }
         format.json { head :no_content }
       else
@@ -81,6 +80,6 @@ class TransactionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transaction_params
-      params.require(:transaction).permit(:date, :description, :amount, :user_id, :share_with)
+      params.require(:transaction).permit(:date, :description, :amount, :user_id)
     end
 end
