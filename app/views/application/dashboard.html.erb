@@ -2,6 +2,13 @@
 
 <div class="summary">
   <% if user_signed_in? %>
-  Welcome back, <b><%= current_user.username %></b>. You owe <%= @total_amount %>
+    Welcome back, <b><%= current_user.username %></b>. You owe <%= @total_amount %>
+    <ul>
+    <% @grouped_user_trans.each do |key, array| %>
+      <% if key.username != current_user.username %>
+        <li>You owe <b><%= key.username %></b> the amount of: <%= array.map {|t| t[1]}.sum %></li>
+      <% end %>
+    <% end %>
+    </ul>
   <% end %>
 </div>

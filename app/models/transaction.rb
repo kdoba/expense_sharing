@@ -17,14 +17,14 @@ class Transaction < ActiveRecord::Base
     end
   end
   def share_with
-    result = TransactionShare.find_by_transaction_id(id)
-    return_string = ""
-    if (result != nil)
-      result.each do |each_result|
-        return_string += each_result.user_id + ","
-      end
-    end
-    return_string = return_string[0..-1]
-    return_string
+    TransactionShare.find_by_transaction_id(id)
+    #return_string = ""
+    #if (result != nil)
+    #  result.each do |each_result|
+    #    return_string += each_result.user_id + ","
+    #  end
+    #end
+    #return_string = return_string[0..-1]
+    #return_string
   end
 end

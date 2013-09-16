@@ -7,8 +7,18 @@ class ApplicationController < ActionController::Base
 
   def dashboard
     if (user_signed_in?)
+
+      ## find all transactions that are shared with the current user
       user_trans = TransactionShare.joins(:transaction, :user).where(user_id: current_user.id)
-      @total_amount = user_trans.map{|t| t.transaction.amount }.sum
+      user_trans = user_trans.map{|t|
+        [t.transaction, t.transaction.amount / TransactionShare.where(transaction_id: t.transaction.id).count]
+      }
+
+      #find all transactions that are not owned by current user
+      @total_amount = user_trans.map { |t| t[0].user_id == current_user.id ? 0 : t[1] }.sum
+
+      @grouped_user_trans = user_trans.group_by { |t| t[0].user }
+
     end
 
 
