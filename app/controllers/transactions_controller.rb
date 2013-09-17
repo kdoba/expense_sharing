@@ -98,7 +98,7 @@ class TransactionsController < ApplicationController
     respond_to do |format|
       if (@transaction.save)
         format.html { redirect_to transactions_url }
-        format.json { redirect_to transactions_url }
+        format.js { render :nothing => true }
       end
 
     end
@@ -110,7 +110,7 @@ class TransactionsController < ApplicationController
     respond_to do |format|
       if (@transaction.save)
         format.html { redirect_to transactions_url }
-        format.json { redirect_to transactions_url }
+        format.js { render :nothing => true }
       end
 
     end

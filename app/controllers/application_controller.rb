@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
       ## find all transactions that are shared with the current user
       user_trans = TransactionShare.joins(:transaction, :user).where(user_id: current_user.id)
       user_trans = user_trans.map{|t|
-        [t.transaction, t.transaction.confirm ?
+        [t.transaction, (t.transaction.confirm && !t.transaction.paid) ?
                         t.transaction.amount / TransactionShare.where(transaction_id: t.transaction.id).count : 0]
       }
 

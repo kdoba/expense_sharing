@@ -2,6 +2,12 @@
 
 /* universal */
 
+.left
+{
+  margin-left:auto;
+  margin-right:auto;
+  width:30%;
+}
 html {
   overflow-y: scroll;
 }
@@ -84,9 +90,11 @@ tbody tr:hover td
 tr.confirmed_transaction td
 {
   color: #336699;
+  background: #eeeeee;
 }
 
 tr.paid_transaction td
 {
   color: #333333;
+  background: #999999;
 }

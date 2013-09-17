@@ -4,7 +4,7 @@
 <h2>Roommate Expense Sharing</h2>
 <p>Please sign up or sign in to continue</p>
 <% end %>
-
+<div class="left">
 <div class="summary">
   <% if user_signed_in? %>
     Welcome back, <b><%= current_user.username %></b>.
@@ -32,4 +32,5 @@
     <% end %>
   </ul>
   <% end %>
+</div>
 </div>

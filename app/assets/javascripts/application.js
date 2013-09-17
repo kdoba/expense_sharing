@@ -25,4 +25,5 @@ $(document).on('ajax:success', '.confirm_transaction', function(e) {
 
 $(document).on('ajax:success', '.pay_transaction', function(e) {
     $(e.currentTarget).closest('tr').addClass('paid_transaction');
+    $(e.currentTarget).closest('td').html("Paid");
 });
