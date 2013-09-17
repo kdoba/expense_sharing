@@ -7,12 +7,18 @@ class Transaction < ActiveRecord::Base
       if (User.exists? new_user)
         newTransactionShare = TransactionShare.new(transaction_id: self.id, user_id: new_user)
         newTransactionShare.save
+        true
+      else
+        false
       end
     elsif (new_user.is_a? String)
       user = User.find_by_username(new_user.strip)
       if (user != nil)
         newTransactionShare = TransactionShare.new(transaction_id: self.id, user_id: user.id)
         newTransactionShare.save
+        true
+      else
+        false
       end
     end
   end

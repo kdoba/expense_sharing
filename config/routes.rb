@@ -4,6 +4,7 @@ ExpenseSharing::Application.routes.draw do
   resources :transactions do
     member do
       get :confirm
+      get :pay
     end
   end
 

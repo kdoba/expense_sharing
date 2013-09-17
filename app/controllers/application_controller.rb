@@ -11,12 +11,17 @@ class ApplicationController < ActionController::Base
       ## find all transactions that are shared with the current user
       user_trans = TransactionShare.joins(:transaction, :user).where(user_id: current_user.id)
       user_trans = user_trans.map{|t|
-        [t.transaction, t.transaction.amount / TransactionShare.where(transaction_id: t.transaction.id).count]
+        [t.transaction, t.transaction.confirm ?
+                        t.transaction.amount / TransactionShare.where(transaction_id: t.transaction.id).count : 0]
       }
 
       #find all transactions that are not owned by current user
       @total_amount = user_trans.map { |t| t[0].user_id == current_user.id ? 0 : t[1] }.sum
 
+      # find out how many unconfirmed transactions there are
+      @pending_count = user_trans.count {|t| !t[0].confirm && !t[0].paid }
+
+      # group all transactions by owners
       @grouped_user_trans = user_trans.group_by { |t| t[0].user }
 
     end

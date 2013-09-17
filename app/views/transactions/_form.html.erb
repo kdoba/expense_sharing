@@ -24,7 +24,12 @@
     <%= f.text_field :amount %>
   </div>
   <div class="field">
-    <%= f.hidden_field :user_id, value: current_user.id %>
+    <% if user_signed_in? %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+    <% else %>
+        <%= f.label :user_id %>
+        <%= f.text_field :user_id %>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :share_with %>

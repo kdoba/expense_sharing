@@ -26,9 +26,11 @@
 </header>
 
 <nav class="side-nav">
-  <%= link_to 'Dashboard', dashboard_path %>
-  <%= link_to 'Pending Transactions', transactions_path %>
+  <% if user_signed_in? %>
+  <%= link_to 'Dashboard', dashboard_path %> |
+  <%= link_to 'Transactions', transactions_path %> |
   <%= link_to 'New Transaction', new_transaction_path %>
+  <% end %>
 </nav>
 
 <% if notice %>

@@ -1,4 +1,4 @@
-<h1>Pending Transactions</h1>
+<h1>Transactions</h1>
 
 <table>
   <thead>
@@ -8,27 +8,34 @@
       <th scope="col" id="amount">Amount</th>
       <th scope="col" id="owner">Owner</th>
       <th scope="col" id="share">Share with</th>
-      <th></th>
+      <th scope="col" id="action">Actions</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @transactions.each do |transaction| %>
-      <tr>
-        <td><%= transaction.date %></td>
-        <td><%= transaction.description %></td>
-        <td><%= transaction.amount %></td>
-        <td><%= transaction.user.username %></td>
-        <td><%= transaction.transaction_shares.map{|t| t.user.username }.join(",")%></td>
-        <% if transaction.confirm == false %>
-        <td><%= link_to 'Confirm', confirm_transaction_path(transaction.id) %></td>
-        <% elsif transaction.paid == false %>
-            Unpaid
-        <% else %>
-            Paid
-        <% end %>
-        <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }, :remote => true,
-                        :class => 'delete_transaction'%></td>
+    <% @sorted_transactions.each do |transaction| %>
+      <% if transaction.paid %>
+        <tr class="paid_transaction">
+      <% elsif transaction.confirm %>
+        <tr class="confirmed_transaction">
+      <% else %>
+        <tr>
+      <% end %>
+            <td><%= transaction.date %></td>
+            <td><%= transaction.description %></td>
+            <td><%= transaction.amount %></td>
+            <td><%= transaction.user.username %></td>
+            <td><%= transaction.transaction_shares.map{|t| t.user.username }.join(",")%></td>
+            <% if !transaction.confirm %>
+              <td><%= link_to 'Confirm', confirm_transaction_path(transaction.id), :remote => true,
+                            :class => 'confirm_transaction' %></td>
+            <% elsif !transaction.paid %>
+              <td><%= link_to 'Pay', pay_transaction_path(transaction.id), :remote => true, :class => 'pay_transaction' %></td>
+            <% else %>
+              <td>Paid</td>
+            <% end %>
+            <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }, :remote => true,
+                            :class => 'delete_transaction'%></td>
       </tr>
     <% end %>
   </tbody>

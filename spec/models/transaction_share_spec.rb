@@ -1,5 +1,8 @@
 require 'spec_helper'
 
 describe TransactionShare do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "should require both transaction_id and user_id" do
+    TransactionShare.new(:transaction_id => "").should_not be_valid
+    TransactionShare.new(:user_id => "").should_not be_valid
+  end
 end

@@ -1,8 +1,8 @@
 == README
 Author: Khoa Do Ba
-Date: Sep 8, 2013
+Date: Sep 15, 2013
 FSE 96-700
-Task 2
+Task 3
 
 == Run Instruction
 To run the app, execute the following command from the project's root folder
@@ -11,6 +11,13 @@ $ rails server
 
 Then enter the following address to your browser
 http://localhost:3000/
+
+== Implementation
+The project includes 3 models: Transaction, User, TransactionShare
+Between those 3 models, Transaction model is linked to User by a foreign key 'user_id'
+TransactionShare is linked to both Transaction and User by 'transaction_id' and 'user_id'.
+
+An example of the use of ajax is when you delete a transaction from the transaction list, the table row will fade out.
 
 == Credit
 I created this project with the help of the following instructions:

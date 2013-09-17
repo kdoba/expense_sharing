@@ -14,3 +14,15 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).on('ajax:success', '.delete_transaction', function(e) {
+    $(e.currentTarget).closest('tr').fadeOut();
+});
+
+$(document).on('ajax:success', '.confirm_transaction', function(e) {
+    $(e.currentTarget).closest('tr').addClass('confirmed_transaction');
+});
+
+$(document).on('ajax:success', '.pay_transaction', function(e) {
+    $(e.currentTarget).closest('tr').addClass('paid_transaction');
+});

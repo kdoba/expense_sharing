@@ -5,6 +5,8 @@
  * Time: 4:54 PM
  * To change this template use File | Settings | File Templates.
  */
+
+/*
 $('.delete_transaction').bind('ajax:success', function() {
     $(this).closest('tr').fadeOut();
-});
+});*/

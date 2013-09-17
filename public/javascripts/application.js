@@ -6,10 +6,6 @@
  * To change this template use File | Settings | File Templates.
  */
 //= require jquery_ujs
-
-$(function() {
-
-    $('.delete_transaction').bind('ajax:success', function() {
-        $(this).closest('tr').fadeOut();
-    });
+$('.delete_transaction').bind('ajax:success', function() {
+    $(this).closest('tr').fadeOut();
 });

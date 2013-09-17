@@ -1,14 +1,35 @@
+<% if user_signed_in? %>
 <h1>Summary</h1>
+<% else %>
+<h2>Roommate Expense Sharing</h2>
+<p>Please sign up or sign in to continue</p>
+<% end %>
 
 <div class="summary">
   <% if user_signed_in? %>
-    Welcome back, <b><%= current_user.username %></b>. You owe <%= @total_amount %>
-    <ul>
-    <% @grouped_user_trans.each do |key, array| %>
-      <% if key.username != current_user.username %>
-        <li>You owe <b><%= key.username %></b> the amount of: <%= array.map {|t| t[1]}.sum %></li>
-      <% end %>
+    Welcome back, <b><%= current_user.username %></b>.
+    <% if @total_amount <= 0 %>
+      Congrats! You don't owe anyone!
+    <% else %>
+      You owe <%= number_to_currency(@total_amount) %>
     <% end %>
-    </ul>
+  <% end %>
+</div>
+<div class="summary">
+  <% if user_signed_in? %>
+      You have <%= link_to "#{@pending_count} pending", transactions_path %> transactions.
+  <% end %>
+</div>
+
+<div class="details">
+  <% if user_signed_in? %>
+  <ul>
+    <% @grouped_user_trans.each do |key, array| %>
+        <% if key.username != current_user.username && array.map {|t| t[1]}.sum > 0 %>
+            <li>You owe <b><%= key.username %></b>
+              the amount of: <%= number_to_currency(array.map {|t| t[1]}.sum) %></li>
+        <% end %>
+    <% end %>
+  </ul>
   <% end %>
 </div>

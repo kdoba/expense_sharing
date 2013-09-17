@@ -23,7 +23,7 @@ describe TransactionsController do
   # This should return the minimal set of attributes required to create a valid
   # Transaction. As you add validations to Transaction, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "date" => "MyString" } }
+  let(:valid_attributes) { { "date" => "MyString", "share_with" => "kdoba, khoa" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -94,50 +94,6 @@ describe TransactionsController do
         Transaction.any_instance.stub(:save).and_return(false)
         post :create, {:transaction => { "date" => "invalid value" }}, valid_session
         response.should render_template("new")
-      end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested transaction" do
-        transaction = Transaction.create! valid_attributes
-        # Assuming there are no other transactions in the database, this
-        # specifies that the Transaction created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Transaction.any_instance.should_receive(:update).with({ "date" => "MyString" })
-        put :update, {:id => transaction.to_param, :transaction => { "date" => "MyString" }}, valid_session
-      end
-
-      it "assigns the requested transaction as @transaction" do
-        transaction = Transaction.create! valid_attributes
-        put :update, {:id => transaction.to_param, :transaction => valid_attributes}, valid_session
-        assigns(:transaction).should eq(transaction)
-      end
-
-      it "redirects to the transaction" do
-        transaction = Transaction.create! valid_attributes
-        put :update, {:id => transaction.to_param, :transaction => valid_attributes}, valid_session
-        response.should redirect_to(transaction)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the transaction as @transaction" do
-        transaction = Transaction.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Transaction.any_instance.stub(:save).and_return(false)
-        put :update, {:id => transaction.to_param, :transaction => { "date" => "invalid value" }}, valid_session
-        assigns(:transaction).should eq(transaction)
-      end
-
-      it "re-renders the 'edit' template" do
-        transaction = Transaction.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Transaction.any_instance.stub(:save).and_return(false)
-        put :update, {:id => transaction.to_param, :transaction => { "date" => "invalid value" }}, valid_session
-        response.should render_template("edit")
       end
     end
   end

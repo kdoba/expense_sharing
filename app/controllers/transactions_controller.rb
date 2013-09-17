@@ -6,6 +6,21 @@ class TransactionsController < ApplicationController
   def index
     if user_signed_in?
       @transactions = TransactionShare.joins(:transaction, :user).where(user_id: current_user.id).map{ |t| t.transaction}
+      @sorted_transactions = @transactions.sort { |t1, t2|
+        if (t1.paid == t2.paid)
+          if (t1.confirm == t2.confirm)
+            0
+          elsif (t1.confirm)
+            1
+          else
+            -1
+          end
+        elsif (t1.paid)
+          1
+        else
+          -1
+        end
+      }
     else
       @transactions = Transaction.all
     end
@@ -35,7 +50,11 @@ class TransactionsController < ApplicationController
 
         share_list = params[:transaction][:share_with].split(",")
         share_list.each do |item|
-          @transaction.share_with = item
+          if !@transaction.share_with = item
+            format.html { render action: 'new' }
+            format.json { render json: @transaction.errors, status: :unprocessable_entity }
+            break
+          end
         end
 
         format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
@@ -69,23 +88,32 @@ class TransactionsController < ApplicationController
     @transaction.destroy
     respond_to do |format|
       format.html { redirect_to transactions_url }
-      format.js
+      format.js { render :nothing => true }
     end
   end
 
   def confirm
+    set_transaction
     @transaction.confirm = true
     respond_to do |format|
       if (@transaction.save)
         format.html { redirect_to transactions_url }
-        format.js { render :nothing => true}
+        format.json { redirect_to transactions_url }
       end
 
-      end
+    end
   end
 
   def pay
+    set_transaction
+    @transaction.paid = true
+    respond_to do |format|
+      if (@transaction.save)
+        format.html { redirect_to transactions_url }
+        format.json { redirect_to transactions_url }
+      end
 
+    end
   end
 
   private
