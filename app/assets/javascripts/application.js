@@ -29,3 +29,4 @@ $(document).on('ajax:success', '.pay_transaction', function(e) {
 });
 
 
+
