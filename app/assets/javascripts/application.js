@@ -28,5 +28,3 @@ $(document).on('ajax:success', '.pay_transaction', function(e) {
     $(e.currentTarget).closest('td').html("Paid");
 });
 
-
-
